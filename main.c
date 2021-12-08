@@ -19,7 +19,6 @@ int lsh_help(char **args);
 int lsh_exit(char **args);
 int lsh_execute(char **args);
 
-
 char *builtin_str[] = {
     "cd", 
     "help", 
@@ -36,8 +35,6 @@ int lsh_numbuiltins(){
     return sizeof(builtin_str) / sizeof(char *);
 }
 
-
-
 void lsh_loop(void){
     char *line;
     char **args;
@@ -53,8 +50,6 @@ void lsh_loop(void){
     }while(status);
 
 }
-
-
 
 char *lsh_read_line(void){
     int bufsize = LSH_RL_BUFSIZE;
@@ -89,7 +84,6 @@ char *lsh_read_line(void){
         }
     }
 }
-
 
 char **lsh_split_line(char *line){
     int bufsize = LSH_TOK_BUFSIZE, position = 0;
@@ -141,8 +135,6 @@ int lsh_launch(char **args){
     return 1;
 }
 
-
-
 int lsh_cd(char **args){
     if(args[1] == NULL)
         fprintf(stderr, "lsh: expected argument to \"cd\"\n");
@@ -181,7 +173,6 @@ int lsh_execute(char **args){
     
     return lsh_launch(args);
 }
-
 
 int main(int argc, char **argv){
     lsh_loop();
