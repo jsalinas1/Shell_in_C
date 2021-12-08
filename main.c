@@ -3,6 +3,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#define LSH_RL_BUFSIZE 1024
+#define LSH_TOK_BUFSIZE 64
+#define LSH_TOK_DELIM " \t\r\n\a"
+
+
 
 int main(int argc, char **argv){
     lsh_loop();
@@ -26,7 +31,7 @@ void lsh_loop(void){
 }
 
 
-#define LSH_RL_BUFSIZE 1024
+
 char *lsh_read_line(void){
     int bufsize = LSH_RL_BUFSIZE;
     int position = 0;
@@ -61,8 +66,7 @@ char *lsh_read_line(void){
     }
 }
 
-#define LSH_TOK_BUFSIZE 64
-#define LSH_TOK_DELIM " \t\r\n\a"
+
 char **lsh_split_line(char *line){
     int bufsize = LSH_TOK_BUFSIZE, position = 0;
     char **tokens = malloc(bufsize * sizeof(char*));
