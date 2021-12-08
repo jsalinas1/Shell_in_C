@@ -28,10 +28,6 @@ int lsh_numbuiltins(){
 }
 
 
-int main(int argc, char **argv){
-    lsh_loop();
-    return EXIT_SUCCESS;
-}
 
 void lsh_loop(void){
     char *line;
@@ -175,4 +171,10 @@ int lsh_execute(char **args){
             return (*builtin_func[i])(args);
     
     return lsh_launch(args);
+}
+
+
+int main(int argc, char **argv){
+    lsh_loop();
+    return EXIT_SUCCESS;
 }
