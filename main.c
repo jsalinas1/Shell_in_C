@@ -7,6 +7,25 @@
 #define LSH_TOK_BUFSIZE 64
 #define LSH_TOK_DELIM " \t\r\n\a"
 
+int lsh_cd(char **args);
+int lsh_help(char **args);
+int lsh_exit(char **args);
+
+char *builtin_str[] = {
+    "cd", 
+    "help", 
+    "exit"
+};
+
+int (*builtinfunc[]) (char **) = {
+    &lsh_cd,
+    &lsh_help,
+    &lsh_exit
+};
+
+int lsh_numbuiltins(){
+    return sizeof(builtin_str) / sizeof(char *);
+}
 
 
 int main(int argc, char **argv){
@@ -115,4 +134,34 @@ int lsh_launch(char **args){
     }
 
     return 1;
+}
+
+
+
+int lsh_cd(char **args){
+    if(args[1] == NULL)
+        fprintf(stderr, "lsh: expected argument to \"cd\"\n");
+    else
+        if(chdir(args[1]) != 0)
+            perror("lsh");
+    
+    return 1;
+}
+
+int lsh_help(char **args){
+    printf("Jezreel Salinas' LSH\n");
+    printf("Type program names and arguments, and hit enter.\n");
+    printf("The following are built in:\n");
+
+    for(int i = 0; i < lsh_numbuiltins(); i++)
+        printf("  %s\n", builtin_str[i]);
+    
+    printf("Use the man command for information on other programs.\n");
+
+    return 1;
+    
+}
+
+int lsh_exit(char **args){
+    return 0;
 }
