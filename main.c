@@ -45,6 +45,7 @@ void lsh_loop(void){
         printf("> ");
         line = lsh_read_line();
         args = lsh_split_line(line);
+        status = lsh_execute(args);
 
         free(line);
         free(args);
@@ -103,8 +104,10 @@ char **lsh_split_line(char *line){
 
         if(position >= bufsize){
             bufsize += LSH_TOK_BUFSIZE;
+            token_backup = tokens;
             tokens = realloc(tokens, bufsize * sizeof(char*));
             if(!tokens){
+                free(token_backup);
                 fprintf(stderr, "lsh: allocation error\n");
                 exit(EXIT_FAILURE);
             }
